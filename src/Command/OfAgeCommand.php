@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\Entity\User;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -39,8 +40,36 @@ class OfAgeCommand extends Command
 
   public function execute(InputInterface $input, OutputInterface $output)
   {
-    // $em = $this->entityManager;
-    // $repo = $em->getRepository(User::class);
+    // ustawiamy date narodzin na Date() -18 lat
+    $date = new \DateTime(date("Y-m-d"));
+    $date->modify('-18 years');
+    $date->format("Y-m-d");
+
+
+    // pobieramy z zbazy danych wszystkich userów któ©zy mają dzisiaj urodziny
+    $em = $this->entityManager;
+    $pelnoletni = $em->getRepository(User::class)->findBy(
+      [
+      'isVerified' => false,
+      'dob' => $date
+      ],
+
+    );
+
+    $output->writeln(sprintf("Znaleziono %d niepełnoletnich userów", count($pelnoletni)));
+
+    // zmianiamy status na aktywny
+    foreach ($pelnoletni as $pelno) {
+      $pelno
+        ->setIsVerified(true)
+      ;
+      $em->persist($pelno);
+    }
+
+    // zapisujemy w bazie
+    $em->flush();
+
+    $output->writeln(sprintf("Udało się zaktualizować %d userów", count($pelnoletni)));
 
     // $pelnoletni = $repo->createQueryBuilder('u')
     //   ->andWhere('u.dob = :today')
@@ -50,9 +79,8 @@ class OfAgeCommand extends Command
     //   ->getQuery()
     //   ->getResult();
 
-    // $output->writeln(sprintf("Znaleziono %d pełnoletnich userów", count($pelnoletni)));
+    // $output->writeln(sprintf("Znaleziono %d niepełnoletnich userów", count($pelnoletni)));
 
-    $output->writeln("Dzień dobry");
-
+    return 0;
   }
 }

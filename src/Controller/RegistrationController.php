@@ -71,7 +71,7 @@ class RegistrationController extends AbstractController
             }
             # koniec sprawdzania
 
-            $user->setCreatedAt(new \DateTime());
+            $user->setCreatedAt(new \DateTime(date("Y-m-d")));
             $user->setProgramowanie(['Uzupełnij profil wpisując język programowania']);
 
             $entityManager = $this->getDoctrine()->getManager();
