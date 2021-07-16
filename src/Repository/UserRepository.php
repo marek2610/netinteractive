@@ -36,6 +36,45 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+
+    public function findByLastThirty()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.created_at BETWEEN :n30days And :today')
+            ->setParameter('today', date('Y-m-d'))
+            ->setParameter('n30days', date('Y-m-d', strtotime("-30 days")))
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByLastSeven()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.created_at BETWEEN :n7days And :today')
+            ->setParameter('today', date('Y-m-d'))
+            ->setParameter('n7days', date('Y-m-d', strtotime("-7 days")))
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findByLastThree()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.created_at BETWEEN :n3days And :today')
+            ->setParameter('today', date('Y-m-d'))
+            ->setParameter('n3days', date('Y-m-d', strtotime("-3 days")))
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

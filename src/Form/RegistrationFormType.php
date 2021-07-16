@@ -21,6 +21,7 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('email')
+            
             ->add('dob', DateType::class, [
                 'widget' => 'single_text',
                 'attr' => [

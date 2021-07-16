@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -50,6 +52,16 @@ class User implements UserInterface
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=System::class, inversedBy="users")
+     */
+    private $system;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $programowanie = [];
 
     public function getId(): ?int
     {
@@ -167,4 +179,29 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getSystem(): ?System
+    {
+        return $this->system;
+    }
+
+    public function setSystem(?System $system): self
+    {
+        $this->system = $system;
+
+        return $this;
+    }
+
+    public function getProgramowanie(): array
+    {
+        return $this->programowanie;
+    }
+
+    public function setProgramowanie(array $programowanie): self
+    {
+        $this->programowanie = $programowanie;
+
+        return $this;
+    }
+
 }

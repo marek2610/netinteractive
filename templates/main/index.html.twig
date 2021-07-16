@@ -1,11 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Main - {{ parent() }}{% endblock %}
 
 {% block body %}
 
     {% for message in app.flashes('success') %}
         <div class="alert alert-success" role="alert">{{ message }}</div>
     {% endfor %}
+
+    <p>
+        Stwórz aplikację w ulubionym frameworku (lub bez niego) wg takiej dokumentacji i podeślij nam jej kod i ew. dostęp do demo :
+    </p>
+    <ol>
+        <li>
+            Jako administrator aplikacji chcę mieć możliwość dodawania użytkowników przez API /CLI / UI
+            <ul>
+                Dane jakie ma zostawić użytkownik to email, pesel, imię i nazwisko, język programowania (wiele) w którym programuje
+                <li>email ma być unikalny</li>
+                <li>języki programowania nie mogą się dublować</li>
+                <li>w przypadku kiedy użytkownik jest niepełnoletni, konto ma zostać założone ale być nieaktywne</li>
+                <li>pełnoletni użytkownicy mają mieć automatycznie aktywne konto</li>
+                <li>po założeniu konta dla pełnoletniego użytkownika ma zostać wysłany email do niego z przywitaniem</li>
+            </ul>
+        </li>
+
+        <li>Jako administrator aplikacji chcę mieć możliwość wyświetlenia użytkowników zarejestrowanych w ostatnich 3, 7, 30 dniach
+            <ul>
+                <li>z informacją jaką drogą zostali dodani do systemu (API, CLI, UI)</li>
+                <li>informacja o wieku użytkownika</li>
+                <li>jeżeli użytkownik jest niepełnoletni ma się pokazać ile (lat / dni) brakuje mu do pełnoletności np. 1 rok i 89 dni, 89 dni</li>
+            </ul>
+        </li>
+        <li>Mamy komendę która aktywuje konta osób które ukończyły 18 rok życia
+            <ul>
+                <li>aktywujemy konto dla użytkownika</li>
+                <li>jeżeli użytkownik ma w danym dniu 18 urodziny wysyłamy do niego wiadomość o aktywacji konta</li>
+            </ul>
+        </li>
+    </ol>
 
 {% endblock %}

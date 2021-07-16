@@ -7,11 +7,14 @@ use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use App\Security\UserAuthenticator;
+use DateTime;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
@@ -29,7 +32,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserAuthenticator $authenticator, MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -43,21 +46,49 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            
+            # sprawdzenie pełnoletności
+            $dzisiaj = new DateTime(date("Y-m-d"));
+            $urodziny = $user->getDob();
+            $interval = $dzisiaj->diff($urodziny);
+
+            if(intval($interval->y) > 18){
+                $user->setIsVerified(true);
+
+                # wysyłanie @ z przywitaniem
+                $email = (new Email())
+                    ->from(new Address('no-reply@netinteractive.test', 'Hello www.netinteractive.test'))
+                    ->to($user->getEmail())
+                    ->subject('Dzień dobry')
+                    ->text('Witaj w systemie')
+                    ->html('<p>Witaj w systemie!</p>');
+
+                $mailer->send($email);
+                # koniec wysyłania
+
+            }else{
+                $user->setIsVerified(false);
+            }
+            # koniec sprawdzania
+
             $user->setCreatedAt(new \DateTime());
-            $user->setIsVerified(false);
+            $user->setProgramowanie(['Uzupełnij profil wpisując jezyk programowania']);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            # @ do osoby pełnoletniej z przywitaniem
+            if(intval($interval->y) > 18){
+                // generate a signed url and email it to the user
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address('no-reply@netinteractive.test', 'Test www.netinteractive.test'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
+                ->from(new Address('no-reply@netinteractive.test', 'Test www.netinteractive.test'))
+                ->to($user->getEmail())
+                ->subject('Please Confirm your Email')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+                );
+            }
             // do anything else you need here, like send an email
 
             return $guardHandler->authenticateUserAndHandleSuccess(

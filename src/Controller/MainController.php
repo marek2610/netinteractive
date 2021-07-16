@@ -17,4 +17,16 @@ class MainController extends AbstractController
             'controller_name' => 'MainController',
         ]);
     }
+
+    /**
+     * @Route("/main", name="app_main")
+     */
+    public function home(): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        return $this->render('main/main.html.twig', [
+            'controller_name' => 'MainController',
+        ]);
+    }
 }

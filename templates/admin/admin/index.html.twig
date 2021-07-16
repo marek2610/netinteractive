@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+30dni
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">email</th>
+        <th scope="col">data urodzenia</th>
+        <th scope="col">dodany</th>
+        <th scope="col">sposób dodania</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u30 in users30 %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ u30.email }}</td>
+          <td>{{ u30.dob|date ("Y-m-d") }}</td>
+          <td>{{ u30.createdAt|date ("Y-m-d") }}</td>
+          <td>(API, CLI, UI)</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  7dni
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">email</th>
+        <th scope="col">data urodzenia</th>
+        <th scope="col">dodany</th>
+        <th scope="col">sposób dodania</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u7 in users7 %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ u7.email }}</td>
+          <td>{{ u7.dob|date ("Y-m-d") }}</td>
+          <td>{{ u7.createdAt|date ("Y-m-d") }}</td>
+          <td>(API, CLI, UI)</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  3dni
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">email</th>
+        <th scope="col">data urodzenia</th>
+        <th scope="col">dodany</th>
+        <th scope="col">sposób dodania</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u3 in users3 %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ u3.email }}</td>
+          <td>{{ u3.dob|date ("Y-m-d") }}</td>
+          <td>{{ u3.createdAt|date ("Y-m-d") }}</td>
+          <td>(API, CLI, UI)</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
