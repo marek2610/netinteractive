@@ -41,7 +41,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.created_at BETWEEN :n30days And :today')
-            ->setParameter('today', date('Y-m-d'))
+            ->setParameter('today', date('Y-m-d', strtotime("1 days")))
             ->setParameter('n30days', date('Y-m-d', strtotime("-30 days")))
             ->orderBy('u.id', 'ASC')
             ->getQuery()
@@ -53,7 +53,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.created_at BETWEEN :n7days And :today')
-            ->setParameter('today', date('Y-m-d'))
+            ->setParameter('today', date('Y-m-d', strtotime("1 days")))
             ->setParameter('n7days', date('Y-m-d', strtotime("-7 days")))
             ->orderBy('u.id', 'ASC')
             ->getQuery()
@@ -65,7 +65,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.created_at BETWEEN :n3days And :today')
-            ->setParameter('today', date('Y-m-d'))
+            ->setParameter('today', date('Y-m-d', strtotime("1 days")))
             ->setParameter('n3days', date('Y-m-d', strtotime("-3 days")))
             ->orderBy('u.id', 'ASC')
             ->getQuery()

@@ -30,9 +30,9 @@
             {% if app.user %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <a href="{{ path('admin_index')}}" class="btn btn-primary btn-lg square" role="button">Admin Index</a>
-                    <a href="" class="btn btn-primary btn-lg square" role="button">Admin Dodaj</a>
+                    <a href="{{ path('admin_user_new') }}" class="btn btn-primary btn-lg square" role="button">Admin Dodaj</a>
                 {% else %}
-                    <a href="{{ path("app_main") }}" class="btn btn-primary btn-lg square" role="button">Index</a>
+                    <a href="{{ path("app_main") }}" class="btn btn-primary btn-lg square" role="button">User Profil</a>
                 {% endif %}  
             <a href="{{ path("app_logout") }}" class="btn btn-primary btn-lg square" role="button">Logout</a>
             {# <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-primary btn-lg square" role="button">Profil info</a>
@@ -41,12 +41,17 @@
             <a href="{{ path("app_login") }}" class="btn btn-primary btn-lg square" role="button">Login</a>
             <a href="{{ path("app_register") }}" class="btn btn-primary btn-lg square" role="button">Registration</a>
             {% endif %}
-
-
-
         </div>
 
         <div class="container">
+            
+            <hr>
+            
+            {% if is_granted('ROLE_USER') %}
+                Jesteś zalogowany jako: {{ app.user.email}}
+                <hr>
+            {% endif %}
+
             {% block body %}{% endblock %}
         </div>
     </body>

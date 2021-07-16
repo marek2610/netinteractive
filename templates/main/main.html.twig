@@ -13,41 +13,41 @@
         <tbody>
             <tr>
                 <th>Id</th>
-                <td>{{ app.user.id }}</td>
+                <td colspan=6>{{ app.user.id }}</td>
             </tr>
             <tr>
                 <th>Roles</th>
-                <td>{{ app.user.roles ? app.user.roles|json_encode : '' }}</td>
+                <td colspan=6>{{ app.user.roles ? app.user.roles|json_encode : '' }}</td>
             </tr>
             <tr>
                 <th>IsVerified</th>
-                <td>{{ app.user.isVerified ? 'Yes' : 'No' }}</td>
+                <td colspan=6>{{ app.user.isVerified ? 'Yes' : 'No' }}</td>
             </tr>
 
             <tr>
                 <th scope="row">email</th>
-                <td>{{ app.user.email}}</td>
+                <td colspan=6>{{ app.user.email}}</td>
             </tr>
             <tr>
                 <th scope="row">dob</th>
-                <td>{{ app.user.dob|date("Y-m-d") }}</td>
+                <td colspan=6>{{ app.user.dob|date("Y-m-d") }}</td>
             </tr>
             <tr>
                 <th scope="row">created_at</th>
-                <td>{{ app.user.createdAt|date("Y-m-d") }}</td>
+                <td colspan=6>{{ app.user.createdAt|date("Y-m-d") }}</td>
             </tr>
             <tr>
                 <th scope="row">programowanie</th>
-                <td>
                     {% for p in  app.user.programowanie %}
+                <td>
                         {{ p }}
-                    {% endfor %}
                 </td>
+                    {% endfor %}
             </tr>
 
         </tbody>
     </table>
 
-    <a href="{{ path('user_edit', {'id': app.user.id}) }}" class="btn btn-primary btn-lg square" role="button">Edytuj</a>
+    <a href="{{ path('user_edit', {'id': app.user.id}) }}" class="btn btn-primary" role="button">Edytuj</a>
 
 {% endblock %}
