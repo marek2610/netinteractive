@@ -73,7 +73,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
 
-
+    public function findByOfAge()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.dob = :today')
+            ->setParameter('today', date('Y-m-d', strtotime("+18 years")))
+            // ->andWhere('u.dob < :dzis')
+            // ->setParameter('dzis', new \DateTime())
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return User[] Returns an array of User objects

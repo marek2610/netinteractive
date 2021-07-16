@@ -83,33 +83,33 @@ class AdminUserController extends AbstractController
     }
     
 
-    /**
-     * @Route("/{id}", name="admin_user_show", methods={"GET"})
-     */
-    public function show(User $user): Response
-    {
-        return $this->render('admin_user/show.html.twig', [
-            'user' => $user,
-        ]);
-    }
+    // /**
+    //  * @Route("/{id}", name="admin_user_show", methods={"GET"})
+    //  */
+    // public function show(User $user): Response
+    // {
+    //     return $this->render('admin_user/show.html.twig', [
+    //         'user' => $user,
+    //     ]);
+    // }
 
-    /**
-     * @Route("/{id}/edit", name="admin_user_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, User $user): Response
-    {
-        $form = $this->createForm(User1Type::class, $user);
-        $form->handleRequest($request);
+    // /**
+    //  * @Route("/{id}/edit", name="admin_user_edit", methods={"GET","POST"})
+    //  */
+    // public function edit(Request $request, User $user): Response
+    // {
+    //     $form = $this->createForm(User1Type::class, $user);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
-        }
+    //         return $this->redirectToRoute('admin_user_index', [], Response::HTTP_SEE_OTHER);
+    //     }
 
-        return $this->render('admin_user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
-    }
+    //     return $this->render('admin_user/edit.html.twig', [
+    //         'user' => $user,
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 }
