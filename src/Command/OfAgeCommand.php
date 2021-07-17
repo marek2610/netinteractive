@@ -97,7 +97,7 @@ class OfAgeCommand extends Command
     $em->flush();
 
     // komunikat o zmianie statusu
-    $output->writeln(sprintf("Zaktualizowano status %d userów", count($pelnoletni)));
+    $output->writeln(sprintf('<info>Zaktualizowano status %d userów</info>', count($pelnoletni)));
 
     return 0;
   }
