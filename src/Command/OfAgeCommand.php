@@ -8,6 +8,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Mailer\Mailer;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Email;
 
 class OfAgeCommand extends Command
 {
@@ -17,10 +21,11 @@ class OfAgeCommand extends Command
   
   private $entityManager;
   
-  public function __construct(EntityManagerInterface $entityManager)
+  public function __construct(EntityManagerInterface $entityManager, MailerInterface $mailer)
   {
     
     $this->entityManager = $entityManager;
+    $this->mailer = $mailer;
     
     parent::__construct();
   }
@@ -53,33 +58,46 @@ class OfAgeCommand extends Command
       'isVerified' => false,
       'dob' => $date
       ],
-
     );
 
     $output->writeln(sprintf("Znaleziono %d niepełnoletnich userów", count($pelnoletni)));
 
+    // while ($row = $pelnoletni['email']) {
+    //   $email = (new Email())
+    //     ->from(new Address('no-reply@netinteractive.test', 'Hello www.netinteractive.test'))
+    //     ->to($row->getEmail())
+    //     ->subject('Dzień dobry')
+    //     ->text('Witaj w systemie')
+    //     ->html('<p>Witaj w systemie!</p>');
+
+    //   $this->mailer->send($email);
+    // }
+
     // zmianiamy status na aktywny
     foreach ($pelnoletni as $pelno) {
+      $email = (new Email())
+        ->from(new Address('no-reply@netinteractive.test', 'Hello www.netinteractive.test'))
+        ->to($pelno->getEmail())
+        ->subject('Dzień dobry')
+        ->text('Witaj w systemie')
+        ->html('<p>Witaj w systemie!</p>')
+      ;
+
+      $this->mailer->send($email);
+      
       $pelno
         ->setIsVerified(true)
       ;
       $em->persist($pelno);
     }
+    $output->writeln(sprintf("Wysłano wiadomość powitalna do %d nowych userów", count($pelnoletni)));
+
 
     // zapisujemy w bazie
     $em->flush();
 
-    $output->writeln(sprintf("Udało się zaktualizować %d userów", count($pelnoletni)));
-
-    // $pelnoletni = $repo->createQueryBuilder('u')
-    //   ->andWhere('u.dob = :today')
-    //   ->setParameter('today', date('Y-m-d', strtotime("+18 years")))
-    //   // ->andWhere('u.dob < :dzis')
-    //   // ->setParameter('dzis', new \DateTime())
-    //   ->getQuery()
-    //   ->getResult();
-
-    // $output->writeln(sprintf("Znaleziono %d niepełnoletnich userów", count($pelnoletni)));
+    // komunikat o zmianie statusu
+    $output->writeln(sprintf("Zaktualizowano status %d userów", count($pelnoletni)));
 
     return 0;
   }
