@@ -3,6 +3,38 @@
 {% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
+
+<a href="{{ path("admin_index30") }}" class="btn btn-primary btn-lg square" role="button">30</a>
+<a href="{{ path("admin_index07") }}" class="btn btn-primary btn-lg square" role="button">7</a>
+<a href="{{ path("admin_index03") }}" class="btn btn-primary btn-lg square" role="button">3</a>
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">email</th>
+        <th scope="col">data urodzenia</th>
+        <th scope="col">dodany</th>
+        <th scope="col">sposób dodania</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in users %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ u.email }}</td>
+          <td>{{ u.dob|expireDOB }}</td>
+          <td>{{ u.createdAt|date ("Y-m-d") }}</td>
+          <td>{{ u.system }}</td>
+          <td>{{ u.isVerified ? '' : 'Nie' }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+{# 
 30dni
   <table class="table">
     <thead>
@@ -76,6 +108,6 @@
         </tr>
       {% endfor %}
     </tbody>
-  </table>
+  </table> #}
 
 {% endblock %}

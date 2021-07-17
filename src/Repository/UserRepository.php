@@ -36,6 +36,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    public function findByAllUsers()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.roles = :user')
+            ->setParameter('user', '[]')
+            ->orderBy('u.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
 
     public function findByLastThirty()
     {
@@ -43,6 +54,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->andWhere('u.created_at BETWEEN :n30days And :today')
             ->setParameter('today', date('Y-m-d', strtotime("+1 days")))
             ->setParameter('n30days', date('Y-m-d', strtotime("-30 days")))
+            ->andWhere('u.roles = :user')
+            ->setParameter('user', '[]')
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()
@@ -55,6 +68,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->andWhere('u.created_at BETWEEN :n7days And :today')
             ->setParameter('today', date('Y-m-d', strtotime("+1 days")))
             ->setParameter('n7days', date('Y-m-d', strtotime("-7 days")))
+            ->andWhere('u.roles = :user')
+            ->setParameter('user', '[]')
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()
@@ -67,6 +82,8 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->andWhere('u.created_at BETWEEN :n3days And :today')
             ->setParameter('today', date('Y-m-d', strtotime("+1 days")))
             ->setParameter('n3days', date('Y-m-d', strtotime("-3 days")))
+            ->andWhere('u.roles = :user')
+            ->setParameter('user', '[]')
             ->orderBy('u.id', 'ASC')
             ->getQuery()
             ->getResult()

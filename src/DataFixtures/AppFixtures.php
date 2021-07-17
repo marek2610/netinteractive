@@ -35,20 +35,10 @@ class AppFixtures extends Fixture
             ->setCreatedAt(new \DateTime())
         ;
         $manager->persist($user);
-
-
-        
+    
         // tworzymy userów 5 +18
         for ($i = 0; $i < 5; $i++){
             $user = new User();
-
-            $startDate = new \DateTime(date("Y-m-d"));
-            $startDate->modify('-30 years');
-            $startDate->format("Y-m-d");
-            
-            $endDate = new \DateTime(date("Y-m-d"));
-            $endDate->modify('-19 years');
-            $endDate->format("Y-m-d");
 
             $user
                 ->setEmail("test" . $i. "@test.pl")
@@ -56,8 +46,8 @@ class AppFixtures extends Fixture
                     $this->encoder->encodePassword($user, '000000')
                 )
                 ->setIsVerified(true)
-                ->setDob($faker->dateTimeBetween($startDate, $endDate))
-                ->setCreatedAt($faker->dateTimeBetween($startDate, $endDate))
+                ->setDob($faker->dateTimeBetween('-30 years', '-25 years'))
+                ->setCreatedAt($faker->dateTimeBetween('-29 days', '-1 days'))
                 ->setProgramowanie(['Uzupełnij profil'])
             ;
             $manager->persist($user);
@@ -66,14 +56,6 @@ class AppFixtures extends Fixture
         // tworzymy -18 w dniu utworzenia
         for ($i = 6; $i < 11; $i++){
             $user = new User();
-
-            $startDate = new \DateTime(date("Y-m-d"));
-            $startDate->modify('-30 days');
-            $startDate->format("Y-m-d");
-            
-            $endDate = new \DateTime(date("Y-m-d"));
-            $endDate->modify('-19 days');
-            $endDate->format("Y-m-d");
 
             $urodziny = new \DateTime(date("Y-m-d"));
             $urodziny->modify('-18 years');
@@ -86,26 +68,18 @@ class AppFixtures extends Fixture
                 )
                 ->setIsVerified(false)
                 ->setDob($urodziny)
-                ->setCreatedAt($faker->dateTimeBetween($startDate, $endDate))
+                ->setCreatedAt($faker->dateTimeBetween('-29 days', '-1 days'))
                 ->setProgramowanie(['Uzupełnij profil'])
             ;
             $manager->persist($user);
         }
 
-        // tworzymy -18 
-        for ($i = 11; $i < 16; $i++) {
+        // tworzymy -18 w przedziale -29 -1 dni
+        for ($i = 11; $i < 20; $i++) {
             $user = new User();
 
-            $startDate = new \DateTime(date("Y-m-d"));
-            $startDate->modify('-10 days');
-            $startDate->format("Y-m-d");
-
-            $endDate = new \DateTime(date("Y-m-d"));
-            $endDate->modify('-2 days');
-            $endDate->format("Y-m-d");
-
             $urodziny = new \DateTime(date("Y-m-d"));
-            $urodziny->modify('-5 years');
+            $urodziny->modify('-18 years');
             $urodziny->format("Y-m-d");
 
             $user
@@ -115,7 +89,7 @@ class AppFixtures extends Fixture
                 )
                 ->setIsVerified(false)
                 ->setDob($urodziny)
-                ->setCreatedAt($faker->dateTimeBetween($startDate, $endDate))
+                ->setCreatedAt($faker->dateTimeBetween('-29 days', '-1 days'))
                 ->setProgramowanie(['Uzupełnij profil']);
             $manager->persist($user);
         }

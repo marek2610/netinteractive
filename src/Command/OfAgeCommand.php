@@ -3,12 +3,10 @@
 namespace App\Command;
 
 use App\Entity\User;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -79,11 +77,11 @@ class OfAgeCommand extends Command
       ;
       $em->persist($pelno);
     }
-    $output->writeln(sprintf("Wysłano wiadomość powitalna do %d nowych userów", count($pelnoletni)));
-
-
     // zapisujemy w bazie
     $em->flush();
+    
+    // komunikat o wysłaniu wiadomości powitalnej
+    $output->writeln(sprintf("Wysłano wiadomość powitalna do %d nowych userów", count($pelnoletni)));
 
     // komunikat o zmianie statusu
     $output->writeln(sprintf('<info>Zaktualizowano status %d userów</info>', count($pelnoletni)));
