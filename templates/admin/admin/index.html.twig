@@ -19,7 +19,7 @@
         <tr>
           <th scope="row">{{ loop.index }}</th>
           <td>{{ u30.email }}</td>
-          <td>{{ u30.dob|expireDOB  }} - {{ u30.dob|date ("Y-m-d") }}</td>
+          <td>{{ u30.dob|expireDOB  }}</td>
           <td>{{ u30.createdAt|date ("Y-m-d") }}</td>
           <td>{{ u30.system }}</td>
           <td>{{ u30.isVerified ? '' : 'Nie' }}</td>

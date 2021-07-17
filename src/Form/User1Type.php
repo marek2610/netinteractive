@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\System;
 use App\Entity\User;
+use App\Repository\SystemRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,6 +18,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class User1Type extends AbstractType
 {
+    private $em;
+
+    public function __construct(SystemRepository $systemRepository) {
+        $this->systemRepository = $systemRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -61,8 +68,11 @@ class User1Type extends AbstractType
             ])
             ->add('system', EntityType::class, [
                 'class' => System::class,
-                'placeholder' => 'Wybierz',
+                #'placeholder' => 'Wybierz',
                 'required' => true,
+                'data'=>$this->systemRepository->findOneBy([
+                    'nazwa'    => 'UI',
+                ])
 
             ] )
         ;
@@ -72,6 +82,7 @@ class User1Type extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'UI'    => [],
         ]);
     }
 }

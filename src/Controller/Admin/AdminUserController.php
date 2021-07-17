@@ -42,6 +42,8 @@ class AdminUserController extends AbstractController
                 )
             );
 
+            $user->setCreatedAt(new \DateTime());
+
             // sprawdzenie pełnoletności
             $dzisiaj = new DateTime(date("Y-m-d"));
             $urodziny = $user->getDob();
@@ -65,8 +67,6 @@ class AdminUserController extends AbstractController
                 $user->setIsVerified(false);
             }
             // koniec sprawdzania pełnoletności
-
-            $user->setCreatedAt(new \DateTime());
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
