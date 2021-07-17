@@ -32,7 +32,7 @@ class AppExtension extends AbstractExtension
     }
 
     // mniej niż rok
-    if (intval($interval->y) < 17){
+    if (intval($interval->y) == 0){
       return "za " . $interval->d . " dni";
     }
 

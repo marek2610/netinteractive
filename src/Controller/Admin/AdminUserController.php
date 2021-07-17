@@ -15,7 +15,7 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-/**
+/**register with automatically values symfony
  * @Route("/admin/user")
  * $this->denyAccessUnlessGranted('ROLE_ADMIN');
  */

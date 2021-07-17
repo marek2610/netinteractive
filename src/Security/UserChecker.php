@@ -16,6 +16,7 @@ class UserChecker implements UserCheckerInterface
           return;
       }
 
+      // brak kolumny isDeleted w encji User
       // if ($user->isDeleted()) {
       //     // the message passed to this exception is meant to be displayed to the user
       //     throw new CustomUserMessageAccountStatusException('Your user account no longer exists.');
@@ -28,6 +29,7 @@ class UserChecker implements UserCheckerInterface
       return;
     }
 
+    // weryfikacja czy konto jest aktywne 
     if (!$user->isVerified()) {
       throw new LockedException();
     }

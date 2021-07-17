@@ -44,7 +44,7 @@
         <tr>
           <th scope="row">{{ loop.index }}</th>
           <td>{{ u7.email }}</td>
-          <td>{{ u7.dob|date ("Y-m-d") }}</td>
+          <td>{{ u7.dob|expireDOB  }}</td>
           <td>{{ u7.createdAt|date ("Y-m-d") }}</td>
           <td>{{ u7.system }}</td>
         </tr>
@@ -68,7 +68,7 @@
         <tr>
           <th scope="row">{{ loop.index }}</th>
           <td>{{ u3.email }}</td>
-          <td>{{ u3.dob|date ("Y-m-d") }}</td>
+          <td>{{ u3.dob|expireDOB  }}</td>
           <td>{{ u3.createdAt|date ("Y-m-d") }}</td>
           <td>{{ u3.system }}</td>
         </tr>
