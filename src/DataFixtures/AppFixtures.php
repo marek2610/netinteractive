@@ -92,6 +92,34 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
+        // tworzymy -18 
+        for ($i = 11; $i < 16; $i++) {
+            $user = new User();
+
+            $startDate = new \DateTime(date("Y-m-d"));
+            $startDate->modify('-10 days');
+            $startDate->format("Y-m-d");
+
+            $endDate = new \DateTime(date("Y-m-d"));
+            $endDate->modify('-2 days');
+            $endDate->format("Y-m-d");
+
+            $urodziny = new \DateTime(date("Y-m-d"));
+            $urodziny->modify('-5 years');
+            $urodziny->format("Y-m-d");
+
+            $user
+                ->setEmail("test" . $i . "@test.pl")
+                ->setPassword(
+                    $this->encoder->encodePassword($user, '000000')
+                )
+                ->setIsVerified(false)
+                ->setDob($urodziny)
+                ->setCreatedAt($faker->dateTimeBetween($startDate, $endDate))
+                ->setProgramowanie(['Uzupełnij profil']);
+            $manager->persist($user);
+        }
+
         $manager->flush();
     }
 }
