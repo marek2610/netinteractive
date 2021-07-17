@@ -62,17 +62,6 @@ class OfAgeCommand extends Command
 
     $output->writeln(sprintf("Znaleziono %d niepełnoletnich userów", count($pelnoletni)));
 
-    // while ($row = $pelnoletni['email']) {
-    //   $email = (new Email())
-    //     ->from(new Address('no-reply@netinteractive.test', 'Hello www.netinteractive.test'))
-    //     ->to($row->getEmail())
-    //     ->subject('Dzień dobry')
-    //     ->text('Witaj w systemie')
-    //     ->html('<p>Witaj w systemie!</p>');
-
-    //   $this->mailer->send($email);
-    // }
-
     // zmianiamy status na aktywny
     foreach ($pelnoletni as $pelno) {
       $email = (new Email())

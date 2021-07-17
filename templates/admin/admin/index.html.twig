@@ -19,7 +19,7 @@
         <tr>
           <th scope="row">{{ loop.index }}</th>
           <td>{{ u30.email }}</td>
-          <td>{{ u30.dob|expireDOB  }}</td>
+          <td>{{ u30.dob|expireDOB }} - {{ u30.dob|date ("Y-m-d") }}</td>
           <td>{{ u30.createdAt|date ("Y-m-d") }}</td>
           <td>{{ u30.system }}</td>
           <td>{{ u30.isVerified ? '' : 'Nie' }}</td>
@@ -44,9 +44,10 @@
         <tr>
           <th scope="row">{{ loop.index }}</th>
           <td>{{ u7.email }}</td>
-          <td>{{ u7.dob|expireDOB  }}</td>
+          <td>{{ u7.dob|expireDOB }} - {{ u7.dob|date ("Y-m-d") }}</td>
           <td>{{ u7.createdAt|date ("Y-m-d") }}</td>
           <td>{{ u7.system }}</td>
+          <td>{{ u7.isVerified ? '' : 'Nie' }}</td>
         </tr>
       {% endfor %}
     </tbody>
@@ -68,9 +69,10 @@
         <tr>
           <th scope="row">{{ loop.index }}</th>
           <td>{{ u3.email }}</td>
-          <td>{{ u3.dob|expireDOB  }}</td>
+          <td>{{ u3.dob|expireDOB }} - {{ u3.dob|date ("Y-m-d") }}</td>
           <td>{{ u3.createdAt|date ("Y-m-d") }}</td>
           <td>{{ u3.system }}</td>
+          <td>{{ u3.isVerified ? '' : 'Nie' }}</td>
         </tr>
       {% endfor %}
     </tbody>
