@@ -23,15 +23,18 @@ class AppExtension extends AbstractExtension
     $now = new \DateTime('now');
     $difference = $now->diff($dob);
 
+    // funkcja kontrolna do sprawdzenie wieku
     //return $difference->format('%y lat, %m miesięcy, %d dni.');
 
+    // pełnoletni +1/
     if ($difference->format("%y") >= 18) {
       if ($difference->format("%m") >= 0){
         if ($difference->format("%d") > 0)
         return "+18";
       }
     }
-    
+
+    // userzy którym został ostatni rok
     if (($difference->format("%y") == 17)){
       $dzisiaj = new DateTime(date("Y-m-d"));
       $pelnoletni = $dob->modify('+18 years');
@@ -40,6 +43,7 @@ class AppExtension extends AbstractExtension
 
     }
 
+    // userzy którzy mają 16 lat i mniej lub mniej niż 17
     if (($difference->format("%y") < 17)){
       $dzisiaj = new DateTime(date("Y-m-d"));
       $pelnoletni = $dob->modify('+18 years');
@@ -48,7 +52,8 @@ class AppExtension extends AbstractExtension
 
     }
 
-    if (($difference->format("%y") == 18) && ($difference->format("%d") == 0)) { 
+    // w dniu dzisiejszym mają urodziny
+    if (($difference->format("%y") == 18) && ($difference->format("%m") == 0) && ($difference->format("%d") == 0)) { 
       return "dziś";
 
     }
@@ -56,6 +61,7 @@ class AppExtension extends AbstractExtension
     #########################
     // $dzisiaj = new DateTime(date("Y-m-d"));
 
+    // // tworzy błąd bo dodaje 18lat 
     // $pelnoletni = $dob->modify('+18 years');
 
     // $interval = $dzisiaj->diff($pelnoletni);

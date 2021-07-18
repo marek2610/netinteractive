@@ -15,7 +15,6 @@ class BackOfAgeCommand extends Command
 
   protected static $defaultName = 'app:back-of-age';
 
-  
   private $entityManager;
   
   public function __construct(EntityManagerInterface $entityManager, MailerInterface $mailer)
@@ -63,7 +62,7 @@ class BackOfAgeCommand extends Command
     $em->flush();
 
     // komunikat o zmianie statusu
-    $output->writeln(sprintf('<fg=#c0392b>Zaktualizowano status %d userów</>', count($pelnoletni)));
+    $output->writeln(sprintf('<info>Zaktualizowano status %d userów</info>', count($pelnoletni)));
 
     return 0;
   }

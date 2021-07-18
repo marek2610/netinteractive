@@ -59,19 +59,21 @@ class OfAgeCommand extends Command
     );
 
     $output->writeln(sprintf("Znaleziono %d niepełnoletnich userów", count($pelnoletni)));
+    $output->writeln(sprintf("<fg=#c0392b>!!!</> Aby wysłać email musi być włączony np. MailHog. <fg=#c0392b>!!!</>"));
 
-    // zmianiamy status na aktywny
+    // wysyłanie @ z informacją o aktywności konta
     foreach ($pelnoletni as $pelno) {
       $email = (new Email())
-        ->from(new Address('no-reply@netinteractive.test', 'Hello www.netinteractive.test'))
-        ->to($pelno->getEmail())
-        ->subject('Dzień dobry')
-        ->text('Witaj w systemie')
-        ->html('<p>Witaj w systemie!</p>')
+      ->from(new Address('no-reply@netinteractive.test', 'Hello www.netinteractive.test'))
+      ->to($pelno->getEmail())
+      ->subject('Dzień dobry')
+      ->text('Konto aktywne, Witaj w systemie')
+      ->html('<p>Konto aktywne, Witaj w systemie!</p>')
       ;
-
+      
       $this->mailer->send($email);
       
+      // zmianiamy status na aktywny
       $pelno
         ->setIsVerified(true)
       ;
