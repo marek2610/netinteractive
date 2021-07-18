@@ -66,15 +66,26 @@ class User1Type extends AbstractType
                     'inny'	=> 'inny',
                 ]
             ])
-            ->add('system', EntityType::class, [
-                'class' => System::class,
-                #'placeholder' => 'Wybierz',
-                'required' => true,
-                'data'=>$this->systemRepository->findOneBy([
-                    'nazwa'    => 'UI',
-                ])
 
-            ] )
+            // ->add('system', EntityType::class, [
+            //     'class' => System::class,
+            //     #'placeholder' => 'Wybierz',
+            //     'required' => true,
+            //     'data'=>$this->systemRepository->findOneBy([
+            //         'nazwa'    => 'UI',
+            //     ])
+
+            // ] )
+
+            // ->add('systemAd', ChoiceType::class, [
+            //     'multiple'  => false,
+            //     'expanded'  => true,
+            //     'choices'   => [
+            //         'API'	=> 'API',
+            //         'CLI'	=> 'CLI',
+            //         'GUI'	=> 'GUI',
+            //     ]
+            // ])
         ;
     }
 

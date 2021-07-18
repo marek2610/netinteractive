@@ -43,6 +43,7 @@ class AdminUserController extends AbstractController
             );
 
             $user->setCreatedAt(new \DateTime());
+            $user->setSystemAd("GUI");
 
             // sprawdzenie pełnoletności
             $dzisiaj = new DateTime(date("Y-m-d"));

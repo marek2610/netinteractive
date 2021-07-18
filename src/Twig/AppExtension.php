@@ -25,9 +25,11 @@ class AppExtension extends AbstractExtension
 
     //return $difference->format('%y lat, %m miesięcy, %d dni.');
 
-    if ($difference->format("%y") > 18) {
-      return "+18";
-
+    if ($difference->format("%y") >= 18) {
+      if ($difference->format("%m") >= 0){
+        if ($difference->format("%d") > 0)
+        return "+18";
+      }
     }
     
     if (($difference->format("%y") == 17)){

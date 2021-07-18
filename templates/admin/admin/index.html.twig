@@ -17,6 +17,7 @@
         <th scope="col">data urodzenia</th>
         <th scope="col">dodany</th>
         <th scope="col">sposób dodania</th>
+        <th scope="col">aktywny</th>
       </tr>
     </thead>
     <tbody>
@@ -26,7 +27,7 @@
           <td>{{ u.email }}</td>
           <td>{{ u.dob|expireDOB }}</td>
           <td>{{ u.createdAt|date ("Y-m-d") }}</td>
-          <td>{{ u.system }}</td>
+          <td>{{ u.systemAd }}</td>
           <td>{{ u.isVerified ? '' : 'Nie' }}</td>
         </tr>
       {% endfor %}

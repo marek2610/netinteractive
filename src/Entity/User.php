@@ -54,14 +54,14 @@ class User implements UserInterface
     private $created_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity=System::class, inversedBy="users")
-     */
-    private $system;
-
-    /**
      * @ORM\Column(type="array", nullable=true)
      */
     private $programowanie = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $systemAd;
 
     public function getId(): ?int
     {
@@ -180,18 +180,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getSystem(): ?System
-    {
-        return $this->system;
-    }
-
-    public function setSystem(?System $system): self
-    {
-        $this->system = $system;
-
-        return $this;
-    }
-
     public function getProgramowanie(): array
     {
         return $this->programowanie;
@@ -200,6 +188,18 @@ class User implements UserInterface
     public function setProgramowanie(array $programowanie): self
     {
         $this->programowanie = $programowanie;
+
+        return $this;
+    }
+
+    public function getSystemAd(): ?string
+    {
+        return $this->systemAd;
+    }
+
+    public function setSystemAd(?string $systemAd): self
+    {
+        $this->systemAd = $systemAd;
 
         return $this;
     }

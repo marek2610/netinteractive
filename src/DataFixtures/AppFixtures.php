@@ -49,6 +49,7 @@ class AppFixtures extends Fixture
                 ->setDob($faker->dateTimeBetween('-30 years', '-25 years'))
                 ->setCreatedAt($faker->dateTimeBetween('-29 days', '-1 days'))
                 ->setProgramowanie(['Uzupełnij profil'])
+                ->setSystemAd("GUI")
             ;
             $manager->persist($user);
         }
@@ -70,6 +71,7 @@ class AppFixtures extends Fixture
                 ->setDob($urodziny)
                 ->setCreatedAt($faker->dateTimeBetween('-29 days', '-1 days'))
                 ->setProgramowanie(['Uzupełnij profil'])
+                ->setSystemAd("GUI")
             ;
             $manager->persist($user);
         }
@@ -88,9 +90,11 @@ class AppFixtures extends Fixture
                     $this->encoder->encodePassword($user, '000000')
                 )
                 ->setIsVerified(false)
-                ->setDob($urodziny)
+                ->setDob($faker->dateTimeBetween('-17 years', '-2 years'))
                 ->setCreatedAt($faker->dateTimeBetween('-29 days', '-1 days'))
-                ->setProgramowanie(['Uzupełnij profil']);
+                ->setProgramowanie(['Uzupełnij profil'])
+                ->setSystemAd("GUI")
+            ;
             $manager->persist($user);
         }
 
